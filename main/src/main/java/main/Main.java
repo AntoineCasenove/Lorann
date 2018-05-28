@@ -20,8 +20,6 @@ public abstract class Main {
         } catch (final SQLException exception) {
             exception.printStackTrace();
         }
-        
-        System.out.println("Coucou");
     }
 
 }
