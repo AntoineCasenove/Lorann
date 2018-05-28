@@ -6,7 +6,9 @@ import controller.ControllerFacade;
 import model.ModelFacade;
 import view.ViewFacade;
 
-//The Main class
+/** The Main class
+	@authors Robin, Yacine, Antonin and Antoine
+*/
 public abstract class Main {
 
     // The main method
@@ -18,6 +20,8 @@ public abstract class Main {
         } catch (final SQLException exception) {
             exception.printStackTrace();
         }
+        
+        System.out.println("Coucou");
     }
 
 }
