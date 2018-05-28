@@ -1,9 +1,11 @@
 package model;
 
 public class Map {
+	
+	static int sizeX = 640;
+	static int sizeY = 384;
+	
 	public Map(){
-		int sizeX;
-		int sizeY;
 	}
 	
 	void mapGenerator(){
