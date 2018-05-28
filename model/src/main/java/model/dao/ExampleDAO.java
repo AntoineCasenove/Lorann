@@ -8,27 +8,22 @@ import java.util.List;
 
 import model.Example;
 
-/**
- * <h1>The Class ExampleDAO.</h1>
- *
- * @author Jean-Aymeric DIET jadiet@cesi.fr
- * @version 1.0
- */
+//The Class ExampleDAO.
 public abstract class ExampleDAO extends AbstractDAO {
 
-    /** The sql example by id. */
+    // The sql example by id.
     private static String sqlExampleById   = "{call findExampleById(?)}";
 
-    /** The sql example by name. */
+    // The sql example by name.
     private static String sqlExampleByName = "{call findExampleByName(?)}";
 
-    /** The sql all examples. */
+    // The sql all examples.
     private static String sqlAllExamples   = "{call findAllExamples()}";
 
-    /** The id column index. */
+    // The id column index.
     private static int    idColumnIndex    = 1;
 
-    /** The name column index. */
+    // The name column index.
     private static int    nameColumnIndex  = 2;
 
     /**

@@ -3,12 +3,7 @@ package model.dao;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 
-/**
- * <h1>The Class AbstractDAO.</h1>
- * 
- * @author Jean-Aymeric DIET jadiet@cesi.fr
- * @version 1.0
- */
+//The Class AbstractDAO.
 public abstract class AbstractDAO {
 
     /**
