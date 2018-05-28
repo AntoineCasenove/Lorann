@@ -17,7 +17,7 @@ public abstract class Main {
     /**
      * The main method.
      *
-     * @param args
+     * @param args COUCOU C'EST TOINOU
      *            the arguments
      */
     public static void main(final String[] args) {
