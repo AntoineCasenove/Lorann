@@ -6,21 +6,10 @@ import controller.ControllerFacade;
 import model.ModelFacade;
 import view.ViewFacade;
 
-/**
- * <h1>The Class Main.</h1>
- *
- * @author Jean-Aymeric DIET jadiet@cesi.fr
- * @version 1.0
- */
+//The Main class
 public abstract class Main {
 
-    /**
-     * The main method.
-     *
-     * @param args COUCOU C'EST TOINOU
-     *            the arguments
-     *            Over the BoqOn
-     */
+    // The main method
     public static void main(final String[] args) {
         final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade());
 
