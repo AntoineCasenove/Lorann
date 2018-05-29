@@ -88,6 +88,30 @@ public abstract class ExampleDAO extends AbstractDAO {
 
             for (boolean isResultLeft = result.first(); isResultLeft; isResultLeft = result.next()) {
                 examples.add(new Example(result.getInt(idColumnIndex), result.getString(nameColumnIndex)));
+                if(result.getString(nameColumnIndex).equals("O")){
+                	System.out.println("Barrier");
+                }
+                else if(result.getString(nameColumnIndex).equals("I")){
+                	System.out.println("Vertical bone");
+                }
+                else if(result.getString(nameColumnIndex).equals("-")){
+                	System.out.println("Horizontal bone");
+                }
+                else if(result.getString(nameColumnIndex).equals("H")){
+                	System.out.println("Door");
+                }
+                else if(result.getString(nameColumnIndex).equals("X")){
+                	System.out.println("Grant");
+                }
+                else{
+                	System.out.println("<<False symbol>>");
+                }
+            }
+            for (boolean isResultLeft = result.first(); isResultLeft; isResultLeft = result.next()) {
+            	if(result.getInt(idColumnIndex)%13 == 0 || result.getInt(idColumnIndex) == 1)
+            		System.out.println("");
+            	
+            	System.out.print(result.getString(nameColumnIndex));
             }
             result.close();
         }
