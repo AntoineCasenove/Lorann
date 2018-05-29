@@ -8,9 +8,13 @@ import model.dao.ExampleDAO;
 //The Class ModelFacade provides a facade of the Model component.
 public final class ModelFacade implements IModel {
 
+	IMap map;
+
 	//Instantiates a new model facade.
     public ModelFacade() {
         super();
+        this.getMap();
+        this.setMap(map);
     }
 
     /*
@@ -39,5 +43,13 @@ public final class ModelFacade implements IModel {
     public List<Example> getAllExamples() throws SQLException {
         return ExampleDAO.getAllExamples();
     }
+    
+	public IMap getMap() {
+		return map;
+	}
 
+	public void setMap(IMap map) {
+		this.map = map;
+	}
+    
 }

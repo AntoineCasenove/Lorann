@@ -1,31 +1,28 @@
 package model;
 
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
-import javax.imageio.ImageIO;
+import java.util.Observable;
 
 import model.dao.*;
 import showboard.*;
 
-public class Map {
+public class Map extends Observable implements ISquare, IMap {
 	
-	private int i;
+    private int width = 700;
+    private int height = 700;
+	private int	i;
+	private Image image;
+	
 
 	public Map(){
 	}
 	
-	public void mapGenerator() throws SQLException, IOException{
-		int x = 0;
-		int y = 0;
+	public void loadFile() throws SQLException, IOException {
+		
 		final List<Example> entity = ExampleDAO.getAllExamples();
-		final BoardFrame frame = new BoardFrame("Lorann");
-		Image bone = ImageIO.read(new File("sprites/bone.png"));
-		final ISquare square = null;
-		square.getImage();
 		
 		for(i = 0; i<entity.size();i++){
 			
@@ -34,7 +31,6 @@ public class Map {
 			
 			if(entity.get(i).getName().equals("O")){
 				System.out.print("O");
-				frame.addSquare(square, 2, 2);
 			}
 		    else if(entity.get(i).getName().equals("I")){
 		    	System.out.print("I");
@@ -52,5 +48,30 @@ public class Map {
 		    	System.out.println("<<False symbol>>");
 		    }
 		}
+	}
+	
+	@Override
+	public Image getImage() {
+		return image;
+	}
+
+	@Override
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	
+	@Override
+    public Observable getObservable() {
+        return this;
+    }
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public int getHeight() {
+		return height;
 	}
 }

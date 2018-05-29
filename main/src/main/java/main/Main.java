@@ -2,6 +2,7 @@ package main;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Observable;
 
 import controller.ControllerFacade;
 import model.*;
@@ -14,10 +15,12 @@ public abstract class Main {
 
     // The main method
     public static void main(final String[] args) throws SQLException, IOException {
+        final ViewFacade view = new ViewFacade();
         final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade());
-        final Map map = new Map();
+    	final IModel model = new ModelFacade();
+        view.runView();
         
-        map.mapGenerator();
+        //map.loadFile();
         
         try {
             controller.start();
@@ -25,5 +28,4 @@ public abstract class Main {
             exception.printStackTrace();
         }
     }
-
 }
