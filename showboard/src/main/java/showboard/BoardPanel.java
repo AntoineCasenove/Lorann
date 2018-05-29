@@ -50,7 +50,7 @@ import javax.swing.JPanel;
  * @see Observer
  * @see Observable
  */
-class BoardPanel extends JPanel implements Observer {
+public class BoardPanel extends JPanel implements Observer {
 
     /** The Constant serialVersionUID. */
     private static final long   serialVersionUID = -3618605287900763008L;
@@ -82,7 +82,7 @@ class BoardPanel extends JPanel implements Observer {
     /**
      * Instantiates a new board panel.
      */
-    BoardPanel() {
+    public BoardPanel() {
         super();
         this.pawns = new ArrayList<>();
         this.noImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -105,7 +105,7 @@ class BoardPanel extends JPanel implements Observer {
     public final void paintComponent(final Graphics graphics) {
 
         final Map<String, ArrayList<IPawn>> mapPawn = this.createMapPawn();
-
+        super.paintComponent(graphics);
         for (int x = this.getCornerMinX(); x <= this.getCornerMaxX(); x++) {
             for (int y = this.getCornerMinY(); y <= this.getCornerMaxY(); y++) {
                 this.drawSquareXY(graphics, x, y);
