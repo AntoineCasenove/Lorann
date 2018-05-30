@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ExampleTest {
-    private Example example;
+    private Element example;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -21,7 +21,7 @@ public class ExampleTest {
 
     @Before
     public void setUp() throws Exception {
-        this.example = new Example(1, "Example test");
+        this.example = new Element(1, "Example test");
     }
 
     @After

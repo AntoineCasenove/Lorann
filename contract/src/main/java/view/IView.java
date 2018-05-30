@@ -1,5 +1,11 @@
 package view;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+import model.IModel;
+import showboard.BoardFrame;
+
 /**
  * <h1>The Interface IView.</h1>
  *
@@ -15,4 +21,6 @@ public interface IView {
      *            the message
      */
     void displayMessage(String message);
+    public void runView() throws SQLException;
+    public void configureBoardFrame(BoardFrame frame) throws SQLException;
 }

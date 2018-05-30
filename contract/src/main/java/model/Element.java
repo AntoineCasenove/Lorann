@@ -1,7 +1,11 @@
 package model;
 
+import java.awt.Point;
+
+import showboard.IPawn;
+
 //The Class Example
-public class Example {
+public class Element extends Tile implements IPawn{
 
     //The id
     private final int id;
@@ -10,8 +14,8 @@ public class Example {
     private String    name;
 
     //Instantiates a new example.
-    public Example(final int id, final String name) {
-        super();
+    public Element(final int id, final String name) {
+        super(name);
         this.id = id;
         this.name = name;
     }
@@ -39,4 +43,22 @@ public class Example {
     public String toString() {
         return this.getId() + " : " + this.getName();
     }
+
+	@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Point getPosition() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

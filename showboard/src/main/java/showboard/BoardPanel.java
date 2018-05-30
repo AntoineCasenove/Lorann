@@ -87,7 +87,7 @@ public class BoardPanel extends JPanel implements Observer {
         this.pawns = new ArrayList<>();
         this.noImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         final Graphics2D graphics = this.noImage.createGraphics();
-        graphics.setColor(Color.darkGray);
+        graphics.setColor(Color.black);
         graphics.fillRect(0, 0, 2, 2);
     }
 
@@ -104,14 +104,14 @@ public class BoardPanel extends JPanel implements Observer {
     @Override
     public final void paintComponent(final Graphics graphics) {
 
-        /*final Map<String, ArrayList<IPawn>> mapPawn = this.createMapPawn();
+        final Map<String, ArrayList<IPawn>> mapPawn = this.createMapPawn();
 
         for (int x = this.getCornerMinX(); x <= this.getCornerMaxX(); x++) {
             for (int y = this.getCornerMinY(); y <= this.getCornerMaxY(); y++) {
                 this.drawSquareXY(graphics, x, y);
                 this.drawPawnsXY(graphics, mapPawn, x, y);
             }
-        }*/
+        }
     }
 
     /*
@@ -167,7 +167,7 @@ public class BoardPanel extends JPanel implements Observer {
         if ((realX < 0) || (realY < 0) || (realX >= widthLimit) || (realY >= heightLimit)) {
             image = this.noImage;
         } else {
-            image = this.squares[realX][realY].getImage();
+            image = this.squares[x][y].getImage();
             if (image == null) {
                 image = this.noImage;
             }
