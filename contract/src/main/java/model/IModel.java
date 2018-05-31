@@ -41,9 +41,4 @@ public interface IModel {
      *             the SQL exception
      */
     List<Element> getAllExamples() throws SQLException;
-
-	public IMap getMap();
-	public void setMap(IMap map);
-
-    
 }

@@ -3,12 +3,9 @@ package model;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import model.IMap;
 
 //The Class ModelFacade provides a facade of the Model component.
 public final class ModelFacade implements IModel {
-
-	private IMap map;
 
 	//Instantiates a new model facade.
     public ModelFacade() throws SQLException, IOException {
@@ -42,13 +39,4 @@ public final class ModelFacade implements IModel {
     public List<Element> getAllExamples() throws SQLException {
         return ExampleDAO.getAllExamples();
     }
-    
-	public IMap getMap() {
-		return map;
-	}
-
-	public void setMap(IMap map) {
-		this.map = map;
-	}
-    
 }

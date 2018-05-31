@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import showboard.BoardFrame;
 import java.util.List;
-import model.IMap;
 import model.IModel;
 import model.Tile;
 import model.Element;
@@ -24,8 +23,8 @@ public class ViewFacade implements IView {
 	
 	
 	private final IModel model;
-	private final int frameWidth = 1280;
-	private final int frameHeight = 1040;
+	private final int frameWidth = 1100;
+	private final int frameHeight = 960;
 	private final int width = 20;
 	private final int height = 15;
 	private Rectangle view = new Rectangle(0,0,width,height);
@@ -36,6 +35,7 @@ public class ViewFacade implements IView {
 	private final Tile doorClose = new Tile("/gate_closed.png");
 	private final Tile purse = new Tile("/purse.png");
 	private final Tile empty = new Tile("");
+	public String tabElement[][] = new String[width][height];
 	
     /**
      * Instantiates a new view facade.
@@ -72,34 +72,41 @@ public class ViewFacade implements IView {
     public void configureBoardFrame(BoardFrame frame) throws SQLException{
     	
     	final List<Element> entity = this.getModel().getAllExamples();
-  
-    	int i = 300
-    			;
+    	
+    	int i = 0;
+    	
 	    for (int y = 0; y < height; y++) {
 	        for (int x = 0; x < width; x++) {
 				if(entity.get(i).getName().equals("O")){
+					tabElement[x][y] = "O";
 					frame.addSquare(bone, x, y);
 				}
 			    else if(entity.get(i).getName().equals("I")){
+			    	tabElement[x][y] = "I";
 			    	frame.addSquare(verticalBone, x, y);
 			    }
 			    else if(entity.get(i).getName().equals("-")){
+			    	tabElement[x][y] = "-";
 			    	frame.addSquare(horizontalBone, x, y);
 			    }
 			    else if(entity.get(i).getName().equals("H")){
+			    	tabElement[x][y] = "H";
 			    	frame.addSquare(doorClose, x, y);
 			    }
 			    else if(entity.get(i).getName().equals("X")){
+			    	tabElement[x][y] = "X";
 			    	frame.addSquare(purse, x, y);
 			    }
-			    else
+			    else if(entity.get(i).getName().equals("!")){
+			    	tabElement[x][y] = "!";
 			    	frame.addSquare(empty, x, y);
+			    }
 				i++;
-				
 	        }
 	    }
 	frame.setVisible(true);
-    }
+	System.out.print("Hey" + tabElement[9][12]);
+	}
 	/*
      * (non-Javadoc)
      * @see view.IView#displayMessage(java.lang.String)
