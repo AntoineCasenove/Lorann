@@ -9,8 +9,7 @@ public final class ModelFacade implements IModel {
 
 	//Instantiates a new model facade.
     public ModelFacade() throws SQLException, IOException {
-        /*this.setMap(new Map());
-        this.getMap().loadFile();*/
+    	super();
     }
 
     /*

@@ -25,16 +25,7 @@ public class ControllerFacade implements IController {
 
     //Start
     public void start() throws SQLException {
-        //this.getView().displayMessage(this.getModel().getExampleById(1).toString());
-
-        final List<Element> examples = this.getModel().getAllExamples();
-        /*final StringBuilder message = new StringBuilder();
-        for (final Element example : examples) {
-            message.append(example);
-            message.append('\n');
-        }
-        this.getView().displayMessage(message.toString());*/
-        view.runView();
+    	this.view.runView();
     }
 
     //Gets the view.

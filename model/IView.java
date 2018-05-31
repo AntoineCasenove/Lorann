@@ -23,6 +23,4 @@ public interface IView {
     void displayMessage(String message);
     public void runView() throws SQLException;
     public void configureBoardFrame(BoardFrame frame) throws SQLException;
-    public void setTabElement(final char tabElement,final int x,final int y);
-    public char getTabElement(final int x,final int y);
 }

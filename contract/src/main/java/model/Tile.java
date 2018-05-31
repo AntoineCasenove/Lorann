@@ -17,10 +17,10 @@ import showboard.ISquare;
 public class Tile implements ISquare {
 
     /** The image. */
-    private Image  image;
+    public Image  image;
 
     /** The image name. */
-    private String imageName;
+    public String imageName;
 
     /**
      * Instantiates a new square.
@@ -41,7 +41,7 @@ public class Tile implements ISquare {
      * @see fr.exia.showboard.ISquare#getImage()
      */
     @Override
-    public final Image getImage() {
+    public Image getImage() {
         return this.image;
     }
 

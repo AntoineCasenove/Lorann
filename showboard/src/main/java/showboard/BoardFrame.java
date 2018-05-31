@@ -15,7 +15,7 @@ import javax.swing.JFrame;
  * As the BoardPanel is a private class, BoardPanel is a Facade.
  * </p>
  *
- * @author Anne-Emilie DIET
+ * @author Sulyven, Enzo, Abdel, Arthur and Ugo group
  * @version 3.0
  * @see JFrame
  * @see BoardPanel
@@ -194,3 +194,4 @@ public class BoardFrame extends JFrame implements IBoard {
         this.getBoardPanel().setHeightLooped(heightLooped);
     }
 }
+

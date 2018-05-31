@@ -1,5 +1,6 @@
 package showboard;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,6 +16,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
+
+
 
 /**
  * <h1>The Class BoardPanel.</h1>
@@ -39,7 +42,7 @@ import javax.swing.JPanel;
  * panel. If this Rectangle is higher than the board dimension, the noImage is also used.
  * </p>
  *
- * @author Anne-Emilie DIET
+ * @author Sulyven, Enzo, Abdel, Arthur and Ugo group
  * @version 3.0
  * @see JPanel
  * @see Dimension
@@ -50,7 +53,7 @@ import javax.swing.JPanel;
  * @see Observer
  * @see Observable
  */
-public class BoardPanel extends JPanel implements Observer {
+class BoardPanel extends JPanel implements Observer {
 
     /** The Constant serialVersionUID. */
     private static final long   serialVersionUID = -3618605287900763008L;
@@ -79,16 +82,20 @@ public class BoardPanel extends JPanel implements Observer {
     /** The height looped. */
     private Boolean             heightLooped     = false;
 
+    
+    
     /**
      * Instantiates a new board panel.
      */
-    public BoardPanel() {
+    BoardPanel() 
+    {
         super();
         this.pawns = new ArrayList<>();
         this.noImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         final Graphics2D graphics = this.noImage.createGraphics();
         graphics.setColor(Color.black);
         graphics.fillRect(0, 0, 2, 2);
+        
     }
 
     /**
@@ -102,12 +109,14 @@ public class BoardPanel extends JPanel implements Observer {
      * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
      */
     @Override
-    public final void paintComponent(final Graphics graphics) {
+    public final void paintComponent(final Graphics graphics) 
+    {
+    	final Map<String, ArrayList<IPawn>> mapPawn = this.createMapPawn();
 
-        final Map<String, ArrayList<IPawn>> mapPawn = this.createMapPawn();
-
-        for (int x = this.getCornerMinX(); x <= this.getCornerMaxX(); x++) {
-            for (int y = this.getCornerMinY(); y <= this.getCornerMaxY(); y++) {
+        for (int x = this.getCornerMinX(); x <= this.getCornerMaxX(); x++) 
+        {
+            for (int y = this.getCornerMinY(); y <= this.getCornerMaxY(); y++) 
+            {
                 this.drawSquareXY(graphics, x, y);
                 this.drawPawnsXY(graphics, mapPawn, x, y);
             }
@@ -167,7 +176,7 @@ public class BoardPanel extends JPanel implements Observer {
         if ((realX < 0) || (realY < 0) || (realX >= widthLimit) || (realY >= heightLimit)) {
             image = this.noImage;
         } else {
-            image = this.squares[x][y].getImage();
+            image = this.squares[realX][realY].getImage();
             if (image == null) {
                 image = this.noImage;
             }
