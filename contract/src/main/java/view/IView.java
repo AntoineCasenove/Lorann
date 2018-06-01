@@ -27,5 +27,5 @@ public interface IView {
     public void configureBoardFrame(BoardFrame frame) throws SQLException;
     public void setTabElement(final char tabElement,final int x,final int y);
     public char getTabElement(final int x,final int y);
-    public void refreshFream(char entry, int x, int y);
+    public void refreshFrame(char entry, int x, int y);
 }

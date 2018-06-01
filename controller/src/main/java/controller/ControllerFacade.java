@@ -31,7 +31,7 @@ public class ControllerFacade implements IController {
     	int i = 0;
     	while(i == 0){
         	Scanner sc = new Scanner(System.in);
-        	System.out.println("Entrez un caractère (!,-,O,X,H,!) : ");
+        	System.out.println("Entrez un caractère (!,I,-,O,X,H,h,C) : ");
         	String str = sc.nextLine();
         	char entry = str.charAt(0);
         	System.out.println("Entrez coordonnée x < 20 : ");
@@ -39,11 +39,10 @@ public class ControllerFacade implements IController {
         	System.out.println("Entrez coordonnée y < 15 : ");
         	int chrY = sc.nextInt();
         	
-        	this.view.refreshFream(entry,chrX, chrY);
+        	this.view.refreshFrame(entry,chrX, chrY);
         	System.out.println(this.view.getTabElement(chrX, chrY));
         	this.view.updateF();
     	}
-
     }
 
     //Gets the view.
