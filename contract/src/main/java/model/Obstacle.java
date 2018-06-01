@@ -14,7 +14,8 @@ import showboard.ISquare;
  * @author Anne-Emilie DIET
  * @version 1.0
  */
-public class Tile implements ISquare {
+
+public class Obstacle implements ISquare {
 
     /** The image. */
     public Image  image;
@@ -27,10 +28,10 @@ public class Tile implements ISquare {
      *
      * @param imageName the image name
      */
-    public Tile(final String imageName) {
+    public Obstacle(final String imageName) {
         this.setImageName(imageName);
     }
-
+    
     /**
      * Gets the image.
      *

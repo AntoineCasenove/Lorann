@@ -1,22 +1,26 @@
 package model;
 
 import java.awt.Image;
+import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
+import showboard.IPawn;
+
 public class Lorann extends Mobile{
 
+	private Point Positon;
 	private Image imgLorann;
 	private ImageIcon iconLorann;
+	private boolean move;
 	private int n;
-
 	
-	
-	public Lorann(int x, int y) {
-		super(x, y);
-//		this.iconLorann = new ImageIcon(getClass().getResource("/images/lorann_l.png"));
-//		this.imgLorann = this.iconLorann.getImage();
-		this.imgLorann = this.bouge(); //Il tourne sur lui meme quand il est n'est pas en mouvement
+	public Lorann(final String nameFile) {
+		super(nameFile);
+		this.move = false;
+		//this.iconLorann = new ImageIcon(getClass().getResource("/images/lorann_l.png"));
+		//this.imgLorann = this.iconLorann.getImage();
+		this.imgLorann = this.afk(); //Il tourne sur lui meme quand il est n'est pas en mouvement.
 	}
 	
 	public Image getLorann(){
@@ -24,10 +28,28 @@ public class Lorann extends Mobile{
 		}
 
 	@Override
+	public int getX() 
+	{
+		return this.getPosition().x;
+	}
+
+	@Override
+	public int getY() 
+	{
+		return this.getPosition().y;
+	}
+
+	@Override
+	public Point getPosition() 
+	{
+		return this.Positon;
+	}
+	
+	@Override
 	public void moveUp() {
 		this.iconLorann = new ImageIcon(getClass().getResource("/images/lorann_u.png"));
 		this.imgLorann = this.iconLorann.getImage();
-		this.y = this.y - 32;
+		this.getPosition().y = this.getPosition().y - 32;
 		
 	}
 
@@ -36,7 +58,7 @@ public class Lorann extends Mobile{
 		
 		this.iconLorann = new ImageIcon(getClass().getResource("/images/lorann_b.png"));
 		this.imgLorann = this.iconLorann.getImage();
-		this.y = this.y + 32;
+		this.getPosition().y = this.getPosition().y + 32;
 		this.move = true;
 		
 	}
@@ -45,7 +67,7 @@ public class Lorann extends Mobile{
 	public void moveRight() {
 		this.iconLorann = new ImageIcon(getClass().getResource("/images/lorann_r.png"));
 		this.imgLorann = this.iconLorann.getImage();
-		this.x = this.x + 32;
+		this.getPosition().x = this.getPosition().x + 32;
 		this.move = true;
 		
 	}
@@ -54,7 +76,7 @@ public class Lorann extends Mobile{
 	public void moveLeft() {
 		this.iconLorann = new ImageIcon(getClass().getResource("/images/lorann_l.png"));
 		this.imgLorann = this.iconLorann.getImage();
-		this.x = this.x - 32;
+		this.getPosition().x = this.getPosition().x - 32;
 		this.move = true;
 		
 	}
@@ -85,12 +107,10 @@ public class Lorann extends Mobile{
 	
 	//*******EFFET MOUVANT*****//
 	
-	public Image bouge(){
+	public Image afk(){
 		
 		String str = null;
 		
-		
-			
 		while(this.move == false){
 			if(this.n == 1)
 				str = "/images/lorann_b.png";
@@ -129,24 +149,24 @@ public class Lorann extends Mobile{
 			
 	}
 	
-	public void run(){
+	/*public void run(){
 		
 		while(this.move == false)
 		{
-			this.bouge();
+			this.afk();
 			try{
 				Thread.sleep(10);
 				}catch(InterruptedException e){}
 		}
-	}
+	}*/
 	
-	public boolean catchGold(Gold gold){
+	/*public boolean catchGold(Purse gold){
 		
-		if(this.x == gold.getX() && this.y == gold.getY())
+		if(this.getPosition().x == gold.getX() && this.getPosition().y == gold.getY())
 			return true;
 		else
 			return false;
-	}
+	}*/
 		
 //		public void move(String order){
 //			

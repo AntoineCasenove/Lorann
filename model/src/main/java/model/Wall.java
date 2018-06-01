@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
 
+import model.Element;
+
 public class Wall extends Element {
 
     private Image imgWall;

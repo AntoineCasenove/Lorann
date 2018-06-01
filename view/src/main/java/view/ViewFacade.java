@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
+
+import controller.Element;
 import showboard.BoardFrame;
 import java.util.List;
 import java.util.Observable;
 import model.IModel;
-import model.Tile;
-import model.Element;
+import model.Obstacle;
 
 /**
  * <h1>The Class ViewFacade provides a facade of the View component.</h1>
@@ -28,14 +29,16 @@ public class ViewFacade extends Observable implements IView, Runnable {
 	private final int height = 15;
 	public Rectangle view = new Rectangle(0,0,width,height);
 	//private Element element = new Element(1,"/bone.png");
-	private final Tile verticalBone = new Tile("vertical_bone.png");
-	private final Tile horizontalBone = new Tile("horizontal_bone.png");
-	private final Tile bone = new Tile("bone.png");
-	private final Tile doorClosed = new Tile("gate_closed.png");
-	private final Tile doorOpened = new Tile("gate_open.png");
-	private final Tile purse = new Tile("purse.png");
-	private final Tile crystalBall = new Tile("crystal_ball.png");
-	private final Tile empty = new Tile("empty.png");
+	private final Obstacle verticalBone = new Obstacle("vertical_bone.png");
+	private final Obstacle horizontalBone = new Obstacle("horizontal_bone.png");
+	private final Obstacle bone = new Obstacle("bone.png");
+	private final Obstacle doorClosed = new Obstacle("gate_closed.png");
+	private final Obstacle doorOpened = new Obstacle("gate_open.png");
+	private final Obstacle purse = new Obstacle("purse.png");
+	private final Obstacle crystalBall = new Obstacle("crystal_ball.png");
+	private final Obstacle empty = new Obstacle("empty.png");
+	private final Obstacle lolo = new Obstacle("lorann_b.png");
+	//private Lorann lorann = new Lorann("lorann_bl.png");
 	private char[][] tabElement = new char[width][height];
 	private BoardFrame frame;
 
@@ -56,6 +59,7 @@ public class ViewFacade extends Observable implements IView, Runnable {
         this.crystalBall.loadImage();
         this.purse.loadImage();
         this.empty.loadImage();
+        this.lolo.loadImage();
     }
     
     @Override
@@ -80,7 +84,7 @@ public class ViewFacade extends Observable implements IView, Runnable {
     	
     	final List<Element> entity = this.getModel().getAllExamples();
     	
-    	int i = 600;
+    	int i = 900;
     	char tmp;
     	//System.out.println(entity.get(0).getName());
 	    for (int y = 0; y < height; y++) {
@@ -123,6 +127,10 @@ public class ViewFacade extends Observable implements IView, Runnable {
 		case 'C' :
 			setTabElement('C',x,y);
 			frame.addSquare(crystalBall, x, y);
+		break;
+		case 'L' :
+			setTabElement('L',x,y);
+			frame.addSquare(lolo, x, y);
 		break;
 		default :
 			setTabElement('!', x,y);

@@ -1,64 +1,37 @@
 package model;
 
-import java.awt.Point;
+public abstract class Element {
+	protected int x;
+	protected int y;
+//	ImageIcon imgicon;
+//	Image img;
+	
+	
+	//****Constructeur****//
+	public Element (int x, int y){
+		this.x = x;
+		this.y = y;
+	}
 
-import showboard.IPawn;
-
-//The Class Example
-public class Element extends Tile implements IPawn{
-
-    //The id
-    private final int id;
-
-    //The name
-    private String    name;
-
-    //Instantiates a new example.
-    public Element(final int id, final String name) {
-        super(name);
-        this.id = id;
-        this.name = name;
-    }
-
-    //Gets the id
-    public int getId() {
-        return this.id;
-    }
-
-    //Gets the name
-    public String getName() {
-        return this.name;
-    }
-
-    //Sets the name
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return this.getId() + " : " + this.getName();
-    }
-
-	@Override
+	//*****GETTER**//
 	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return x;
 	}
-
-	@Override
+	
 	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return y;
+	}
+	
+	//****SETTERS****//
+
+	public void setX(int x) {
+		this.x = x;
 	}
 
-	@Override
-	public Point getPosition() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public void setY(int y) {
+		this.y = y;
 	}
+	
+	
 }

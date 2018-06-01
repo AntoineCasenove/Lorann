@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import controller.Element;
+import model.IModel;
+
 //The Class ModelFacade provides a facade of the Model component.
 public final class ModelFacade implements IModel {
 

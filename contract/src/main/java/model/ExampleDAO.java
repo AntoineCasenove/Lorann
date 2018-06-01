@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.Element;
 import model.AbstractDAO;
 
 //The Class ExampleDAO.

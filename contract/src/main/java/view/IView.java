@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import model.IModel;
-import model.Tile;
+import model.Obstacle;
 import showboard.BoardFrame;
 
 /**

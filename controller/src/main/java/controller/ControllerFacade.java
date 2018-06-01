@@ -4,9 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
-import model.Element;
 import model.IModel;
-import model.Tile;
+import model.Obstacle;
 import view.IView;
 
 //The Class ControllerFacade provides a facade of the Controller component.
@@ -43,6 +42,7 @@ public class ControllerFacade implements IController {
         	System.out.println(this.view.getTabElement(chrX, chrY));
         	this.view.updateF();
     	}
+    	this.view.getTabElement(2, 2);
     }
 
     //Gets the view.
