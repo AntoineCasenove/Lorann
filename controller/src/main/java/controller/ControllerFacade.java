@@ -2,9 +2,11 @@ package controller;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 import model.Element;
 import model.IModel;
+import model.Tile;
 import view.IView;
 
 //The Class ControllerFacade provides a facade of the Controller component.
@@ -25,7 +27,23 @@ public class ControllerFacade implements IController {
 
     //Start
     public void start() throws SQLException {
-    	this.view.runView();
+    	this.view.run();
+    	int i = 0;
+    	while(i == 0){
+        	Scanner sc = new Scanner(System.in);
+        	System.out.println("Entrez un caractère (!,-,O,X,H,!) : ");
+        	String str = sc.nextLine();
+        	char entry = str.charAt(0);
+        	System.out.println("Entrez coordonnée x < 20 : ");
+        	int chrX = sc.nextInt();
+        	System.out.println("Entrez coordonnée y < 15 : ");
+        	int chrY = sc.nextInt();
+        	
+        	this.view.refreshFream(entry,chrX, chrY);
+        	System.out.println(this.view.getTabElement(chrX, chrY));
+        	this.view.updateF();
+    	}
+
     }
 
     //Gets the view.

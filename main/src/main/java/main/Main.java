@@ -19,7 +19,6 @@ public abstract class Main {
     	final ViewFacade view = new ViewFacade(model);
     	final ControllerFacade controller = new ControllerFacade(view, model);
     	
-    	System.out.println(view.getTabElement(0, 0));
         try {
             controller.start();
         } catch (final SQLException exception) {

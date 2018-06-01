@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import showboard.BoardFrame;
 import java.util.List;
+import java.util.Observable;
 import model.IModel;
 import model.Tile;
 import model.Element;
@@ -18,7 +19,7 @@ import model.Element;
  * @version 1.0
  */
 
-public class ViewFacade implements IView {
+public class ViewFacade extends Observable implements IView, Runnable {
 	
 	
 	private IModel model;
@@ -26,7 +27,7 @@ public class ViewFacade implements IView {
 	private final int frameHeight = 960;
 	private final int width = 20;
 	private final int height = 15;
-	private Rectangle view = new Rectangle(0,0,width,height);
+	public Rectangle view = new Rectangle(0,0,width,height);
 	//private Element element = new Element(1,"/bone.png");
 	private final Tile verticalBone = new Tile("vertical_bone.png");
 	private final Tile horizontalBone = new Tile("horizontal_bone.png");
@@ -51,14 +52,22 @@ public class ViewFacade implements IView {
         this.bone.loadImage();
         this.doorClose.loadImage();
         this.purse.loadImage();
+        this.empty.loadImage();
     }
     
     @Override
-    public void runView() throws SQLException{
-		this.frame = new BoardFrame("LorannEUH");
+    public void run(){
+		this.frame = new BoardFrame("Lorann");
 		frame.setDimension(new Dimension(width,height));
 		frame.setDisplayFrame(view);
-		this.configureBoardFrame(frame);
+		
+		try {
+			this.configureBoardFrame(frame);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		frame.setSize(frameWidth,frameHeight);
 		frame.setLocationRelativeTo(null);
     }
@@ -96,13 +105,47 @@ public class ViewFacade implements IView {
 			    	setTabElement('!',x,y);
 			    	frame.addSquare(this.empty, x, y);
 			    }
-			    
 				i++;
 	        }
 	    }
+	this.addObserver(frame.getObserver());
 	frame.setVisible(true);
 	}
 
+    
+    public void refreshFream(char entry,int x, int y){
+    	switch(entry){
+    	case 'O' :
+        	setTabElement('O',x,y);
+        	frame.addSquare(bone, x, y);
+        break;
+		case '-' :
+	    	setTabElement('!',x,y);
+	    	frame.addSquare(horizontalBone, x, y);
+	    break;
+		case 'I' :
+			setTabElement('I',x,y);
+			frame.addSquare(verticalBone, x, y);
+		break;
+		case 'X' :
+			setTabElement('X',x,y);
+			frame.addSquare(purse, x, y);
+		break;
+		case 'H' :
+			setTabElement('H',x,y);
+			frame.addSquare(doorClose, x, y);
+		break;
+		default :
+			setTabElement('!', x,y);
+			frame.addSquare(empty, x, y);
+		}
+
+    }
+    
+    public void updateF(){
+    	this.setChanged();
+    	this.notifyObservers();
+    }
 	/*
      * (non-Javadoc)
      * @see view.IView#displayMessage(java.lang.String)
