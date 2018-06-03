@@ -19,7 +19,9 @@ public class ControllerFacade implements IController, KeyListener {
 
     Thread_Lorann thread;
     
-    private int i = 0;
+    char direction;
+
+	private int i = 0;
     
     //Instantiates a new controller facade.
     public ControllerFacade(final IView view, final IModel model) {
@@ -117,6 +119,8 @@ public class ControllerFacade implements IController, KeyListener {
 			break;
 		}
 		
+		
+		this.setDirection(chr);
     	this.view.refreshFrame('L', this.view.getLorann().getX(), this.view.getLorann().getY());
     	this.view.updateF();
 	}
@@ -148,6 +152,7 @@ public class ControllerFacade implements IController, KeyListener {
 					e1.printStackTrace();
 				}
 			}
+			System.out.println(this.getDirection());
 	    	break;
 	    	
 		case KeyEvent.VK_DOWN:
@@ -171,6 +176,7 @@ public class ControllerFacade implements IController, KeyListener {
 					e1.printStackTrace();
 				}
 			}
+			System.out.println(this.getDirection());
 	    	break;
 	    	
 		case KeyEvent.VK_LEFT:
@@ -318,6 +324,14 @@ public class ControllerFacade implements IController, KeyListener {
 	public void keyReleased(KeyEvent e) {
 	}
 
+    public char getDirection() {
+		return direction;
+	}
+
+	public void setDirection(char direction) {
+		this.direction = direction;
+	}
+	
 	public int getI() {
 		return i;
 	}
