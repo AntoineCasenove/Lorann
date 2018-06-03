@@ -11,6 +11,7 @@ import showboard.BoardFrame;
 import java.util.List;
 import java.util.Observable;
 import model.IModel;
+import model.Lorann;
 import model.Obstacle;
 
 /**
@@ -23,11 +24,12 @@ import model.Obstacle;
 public class ViewFacade extends Observable implements IView, Runnable {
 
 	private IModel model;
+	private Lorann lorann = new Lorann("lorann_1.png");
 	private final int frameWidth = 1056;
 	private final int frameHeight = 922;
 	private final int width = 20;
 	private final int height = 15;
-	public Rectangle view = new Rectangle(0,0,width,height);
+	public Rectangle view = new Rectangle(0,0,width,height+1);
 	//private Element element = new Element(1,"/bone.png");
 	private final Obstacle verticalBone = new Obstacle("vertical_bone.png");
 	private final Obstacle horizontalBone = new Obstacle("horizontal_bone.png");
@@ -37,8 +39,6 @@ public class ViewFacade extends Observable implements IView, Runnable {
 	private final Obstacle purse = new Obstacle("purse.png");
 	private final Obstacle crystalBall = new Obstacle("crystal_ball.png");
 	private final Obstacle empty = new Obstacle("empty.png");
-	private final Obstacle lolo = new Obstacle("lorann_b.png");
-	//private Lorann lorann = new Lorann("lorann_bl.png");
 	private char[][] tabElement = new char[width][height];
 	private BoardFrame frame;
 
@@ -59,7 +59,7 @@ public class ViewFacade extends Observable implements IView, Runnable {
         this.crystalBall.loadImage();
         this.purse.loadImage();
         this.empty.loadImage();
-        this.lolo.loadImage();
+        this.getLorann().loadImage();
     }
     
     @Override
@@ -69,7 +69,7 @@ public class ViewFacade extends Observable implements IView, Runnable {
 		frame.setDisplayFrame(view);
 		
 		try {
-			this.configureBoardFrame(frame);
+			this.configureBoardFrame(frame, 0);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,11 +80,10 @@ public class ViewFacade extends Observable implements IView, Runnable {
     }
     
     @Override
-    public void configureBoardFrame(BoardFrame frame) throws SQLException{
-    	
+    public void configureBoardFrame(BoardFrame frame, int i) throws SQLException{
+
     	final List<Element> entity = this.getModel().getAllExamples();
-    	
-    	int i = 900;
+
     	char tmp;
     	//System.out.println(entity.get(0).getName());
 	    for (int y = 0; y < height; y++) {
@@ -95,7 +94,7 @@ public class ViewFacade extends Observable implements IView, Runnable {
 	        }
 	    }
 	this.addObserver(frame.getObserver());
-	frame.setVisible(true);
+		frame.setVisible(true);
 	}
 
     public void refreshFrame(char entry,int x, int y){
@@ -105,7 +104,7 @@ public class ViewFacade extends Observable implements IView, Runnable {
         	frame.addSquare(bone, x, y);
         break;
 		case '-' :
-	    	setTabElement('!',x,y);
+	    	setTabElement('-',x,y);
 	    	frame.addSquare(horizontalBone, x, y);
 	    break;
 		case 'I' :
@@ -130,11 +129,14 @@ public class ViewFacade extends Observable implements IView, Runnable {
 		break;
 		case 'L' :
 			setTabElement('L',x,y);
-			frame.addSquare(lolo, x, y);
+			frame.addSquare(lorann,x,y);
+			frame.addPawn(lorann);
+			lorann.setPosition(x, y);
 		break;
 		default :
 			setTabElement('!', x,y);
 			frame.addSquare(empty, x, y);
+		break;
 		}
 
     }
@@ -156,6 +158,10 @@ public class ViewFacade extends Observable implements IView, Runnable {
     	return view;
     }
     
+	public Lorann getLorann() {
+		return lorann;
+	}
+    
     public void setView(Rectangle view){
     	this.view = view;
     }
@@ -170,6 +176,10 @@ public class ViewFacade extends Observable implements IView, Runnable {
 
 	public int getWidth(){
 		return width;
+	}
+	
+    public BoardFrame getBoardFrame() {
+		return frame;
 	}
 	
 	public void setTabElement(final char tabElement,final int x,final int y){

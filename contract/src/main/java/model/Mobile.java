@@ -31,10 +31,10 @@ public abstract class Mobile implements IPawn{
 	protected abstract void moveRight();
 	protected abstract void moveLeft();
 	
-	protected abstract void moveUpRight();
-	protected abstract void moveUpLeft();
-	protected abstract void moveDownRight();
-	protected abstract void moveDownLeft();
+	protected abstract void moveRightUp();
+	protected abstract void moveLeftUp();
+	protected abstract void moveRightDown();
+	protected abstract void moveLeftDown();
     
     public Mobile(final String imageName) {
         this.setImageName(imageName);
@@ -59,7 +59,7 @@ public abstract class Mobile implements IPawn{
      *
      * @param image the new image
      */
-    private void setImage(final Image image) {
+    public void setImage(final Image image) {
         this.image = image;
     }
 

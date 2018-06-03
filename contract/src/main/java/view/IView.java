@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import model.IModel;
+import model.Lorann;
 import model.Obstacle;
 import showboard.BoardFrame;
 
@@ -24,8 +25,10 @@ public interface IView {
     void displayMessage(String message);
     public void run();
     public void updateF();
-    public void configureBoardFrame(BoardFrame frame) throws SQLException;
+    public void configureBoardFrame(BoardFrame frame, int i) throws SQLException;
     public void setTabElement(final char tabElement,final int x,final int y);
     public char getTabElement(final int x,final int y);
     public void refreshFrame(char entry, int x, int y);
+    public Lorann getLorann();
+    public BoardFrame getBoardFrame();
 }
