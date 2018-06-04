@@ -14,8 +14,7 @@ public class Thread_Spell extends Thread {
 	
 	char direction;
 	
-	private final int loop = 75
-			;
+	private final int loop = 75;
 	
 	public Thread_Spell (IController controller, char direction){
 		this.controller = controller;
