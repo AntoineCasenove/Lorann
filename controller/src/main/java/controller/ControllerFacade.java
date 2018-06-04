@@ -1,45 +1,66 @@
 package controller;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 import java.awt.event.*;
+import java.io.IOException;
 
 import model.*;
 import view.*;
+
+/**
+* @author Antoine CASENOVE antoine.casenove@viacesi.fr
+*/
 
 //The Class ControllerFacade provides a facade of the Controller component.
 public class ControllerFacade implements IController, KeyListener {
 
     //The view
-    private final IView  view;
+    private final IView view;
 
     //The model
     private final IModel model;
 
-    Thread_Lorann thread;
+    Thread_Lorann threadLorann;
+    
+    Thread_Monster threadMonster;
+    
+    Thread_Spell threadSpell;
     
     char direction;
 
+    boolean spellOnMap = false;
+
 	private int i = 0;
-    
+   
     //Instantiates a new controller facade.
     public ControllerFacade(final IView view, final IModel model) {
         super();
         this.view = view;
         this.model = model;
-        this.thread = new Thread_Lorann ("test", this);
+        this.threadLorann = new Thread_Lorann ("Lorann", this);
+        this.threadMonster = new Thread_Monster ("1", this);
     }
 
     //Start
-    public void start() throws SQLException {
+    public void start() throws SQLException, IOException, InterruptedException {
+    	
+    	final Menu menu = new Menu();
+    	
+    	while(menu.getClose() == false){
+    		Thread.sleep(0);
+    	}
+    	
     	this.view.run();
-    	this.thread.start();
+    	this.threadLorann.start();
+		this.threadMonster.start();
+
     	this.getView().getBoardFrame().addKeyListener(this);
     	this.getView().getBoardFrame().requestFocus();
+    	
     	//this.view.updateF();
-    	//int i = 0;
-    	/*while(i == 0){
+    	int i = 0;
+    	while(i == 0){
         	Scanner sc = new Scanner(System.in);
         	System.out.println("Entrez un caractère (!,I,-,O,X,H,h,C) : ");
         	String str = sc.nextLine();
@@ -52,15 +73,7 @@ public class ControllerFacade implements IController, KeyListener {
         	this.view.refreshFrame(entry,chrX, chrY);
         	System.out.println(this.view.getTabElement(chrX, chrY));
         	this.view.updateF();
-    	}*/
-    	//this.view.getTabElement(2, 2);
-    	
-    	/*this.view.refreshFrame('!',view.getLorann().getX(), view.getLorann().getY());
-    	System.out.println(view.getLorann().getX() + " " + view.getLorann().getY());
-    	this.view.getLorann().moveRight();
-    	System.out.println(view.getLorann().getX() + " " + view.getLorann().getY());
-    	this.view.refreshFrame('L', this.view.getLorann().getX(), this.view.getLorann().getY());
-    	this.view.updateF();*/
+    	}
     }
 
     //Gets the view.
@@ -88,8 +101,9 @@ public class ControllerFacade implements IController, KeyListener {
 			}
 		}
 	}
-	
+
 	public void move(char chr){
+    	
 		this.view.refreshFrame('!',view.getLorann().getX(), view.getLorann().getY());
 		
 		switch(chr){
@@ -107,18 +121,21 @@ public class ControllerFacade implements IController, KeyListener {
 			break;
 		case 'A' :
 			this.view.getLorann().moveLeftUp();
+			chr = 'L';
 			break;
 		case 'E' :
 			this.view.getLorann().moveRightUp();
+			chr = 'R';
 			break;
 		case 'Q' :
 			this.view.getLorann().moveLeftDown();
+			chr = 'L';
 			break;
 		case 'd' : 
 			this.view.getLorann().moveRightDown();
+			chr = 'R';
 			break;
 		}
-		
 		
 		this.setDirection(chr);
     	this.view.refreshFrame('L', this.view.getLorann().getX(), this.view.getLorann().getY());
@@ -127,197 +144,344 @@ public class ControllerFacade implements IController, KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+
 		int keyCode = e.getKeyCode();
-		
+
+		final char elementUp = this.getView().getTabElement(view.getLorann().getX(), view.getLorann().getY()-1);
+		final char elementDown = this.getView().getTabElement(view.getLorann().getX(), view.getLorann().getY()+1);
+		final char elementLeft = this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY());
+		final char elementRight = this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY());
+		final char elementRightUp = this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()-1);
+		final char elementLeftUp = this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()-1);
+		final char elementRightDown = this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()+1);
+		final char elementLeftDown = this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()+1);
+
 		switch(keyCode){
-		
+
 		case KeyEvent.VK_UP:
-			if(this.getView().getTabElement(view.getLorann().getX(), view.getLorann().getY()-1) == '!'){
+			if(elementUp == '!' || elementUp == 'X'){
 				this.move('U');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX(), view.getLorann().getY()-1) == 'X'){
-				this.move('U');
-			}
-			else if(this.getView().getTabElement(view.getLorann().getX(), view.getLorann().getY()-1) == 'C'){
+			else if(elementUp == 'C'){
 				this.move('U');
 				this.openDoor();
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX(), view.getLorann().getY()-1) == 'h'){
+			else if(elementUp == 'h'){
 				this.move('U');
 				this.setI(i+=300);
+				if(i >= 1500){
+					this.youWin();
+				}
 				try {
 					this.view.configureBoardFrame(this.view.getBoardFrame(), this.getI());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				if(i == 300){
+			        this.threadMonster = new Thread_Monster ("2", this);
+				}
+				else if(i == 600){
+					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				this.threadMonster.start();
 			}
-			System.out.println(this.getDirection());
+			else if(elementUp == '1' || elementUp == '2' || elementUp == '3' || elementUp == '4' || elementUp == 'H'){
+				this.view.getLorann().setInLife(false);
+			}
 	    	break;
-	    	
+
 		case KeyEvent.VK_DOWN:
-			if(this.getView().getTabElement(view.getLorann().getX(), view.getLorann().getY()+1) == '!'){
+			if(elementDown == '!'){
 				this.move('D');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX(), view.getLorann().getY()+1) == 'X'){
+			else if(elementDown == 'X'){
 				this.move('D');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX(), view.getLorann().getY()+1) == 'C'){
+			else if(elementDown == 'C'){
 				this.move('D');
 				this.openDoor();
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX(), view.getLorann().getY()+1) == 'h'){
+			else if(elementDown == 'h'){
 				this.move('D');
 				this.setI(i+=300);
+				if(i >= 1500){
+					this.youWin();
+				}
 				try {
 					this.view.configureBoardFrame(this.view.getBoardFrame(), this.getI());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				if(i == 300){
+			        this.threadMonster = new Thread_Monster ("2", this);
+				}
+				else if(i == 600){
+					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				this.threadMonster.start();
 			}
-			System.out.println(this.getDirection());
+			else if(elementDown == '1' || elementDown == '2' || elementDown == '3' || elementDown == '4' || elementDown == 'H'){
+				this.view.getLorann().setInLife(false);
+			}
 	    	break;
 	    	
 		case KeyEvent.VK_LEFT:
-			if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()) == '!'){
+			if(elementLeft == '!'){
 				this.move('L');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()) == 'X'){
+			else if(elementLeft == 'X'){
 				this.move('L');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()) == 'C'){
+			else if(elementLeft == 'C'){
 				this.move('L');
 				this.openDoor();
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()) == 'h'){
+			else if(elementLeft == 'h'){
 				this.move('L');
 				this.setI(i+=300);
+				if(i >= 1500){
+					this.youWin();
+				}
 				try {
 					this.view.configureBoardFrame(this.view.getBoardFrame(), this.getI());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				if(i == 300){
+			        this.threadMonster = new Thread_Monster ("2", this);
+				}
+				else if(i == 600){
+					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				this.threadMonster.start();
+			}
+			else if(elementLeft == '1' || elementLeft == '2' || elementLeft == '3' || elementLeft == '4' || elementLeft == 'H'){
+				this.view.getLorann().setInLife(false);
 			}
 	    	break;
 	    	
 		case KeyEvent.VK_RIGHT:
-			if(this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()) == '!'){
+			if(elementRight == '!'){
 				this.move('R');
 			}
-			else if (this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()) == 'X'){
+			else if (elementRight == 'X'){
 				this.move('R');
 			}
-			else if (this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()) == 'C'){
+			else if (elementRight == 'C'){
 				this.move('R');
 				this.openDoor();
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()) == 'h'){
+			else if(elementRight == 'h'){
 				this.move('R');
 				this.setI(i+=300);
+				if(i >= 1500){
+					this.youWin();
+				}
 				try {
 					this.view.configureBoardFrame(this.view.getBoardFrame(), this.getI());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				if(i == 300){
+			        this.threadMonster = new Thread_Monster ("2", this);
+				}
+				else if(i == 600){
+					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				this.threadMonster.start();
+			}
+			else if(elementRight == '1' || elementRight == '2' || elementRight == '3' || elementRight == '4' || elementRight == 'H'){
+				this.view.getLorann().setInLife(false);
 			}
 	    	break;
 	    	
 		case KeyEvent.VK_E:
-			if(this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()-1) == '!'){
+			if(elementRightUp == '!'){
 				this.move('E');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()-1) == 'X'){
+			else if(elementRightUp == 'X'){
 				this.move('E');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()-1) == 'C'){
+			else if(elementRightUp == 'C'){
 				this.move('E');
 				this.openDoor();
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()-1) == 'h'){
+			else if(elementRightUp == 'h'){
 				this.move('E');
 				this.setI(i+=300);
+				if(i >= 1500){
+					this.youWin();
+				}
 				try {
 					this.view.configureBoardFrame(this.view.getBoardFrame(), this.getI());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				if(i == 300){
+			        this.threadMonster = new Thread_Monster ("2", this);
+				}
+				else if(i == 600){
+					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				this.threadMonster.start();
+			}
+			else if(elementRightUp == '1' || elementRightUp == '2' || elementRightUp == '3' || elementRightUp == '4' || elementRightUp == 'H'){
+				this.view.getLorann().setInLife(false);
 			}
 	    	break;
 	    	
 		case KeyEvent.VK_A:
-			if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()-1) == '!'){
+			if(elementLeftUp == '!'){
 				this.move('A');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()-1) == 'X'){
+			else if(elementLeftUp == 'X'){
 				this.move('A');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()-1) == 'C'){
+			else if(elementLeftUp == 'C'){
 				this.move('A');
 				this.openDoor();
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()-1) == 'h'){
+			else if(elementLeftUp == 'h'){
 				this.move('A');
 				this.setI(i+=300);
+				if(i >= 1500){
+					this.youWin();
+				}
 				try {
 					this.view.configureBoardFrame(this.view.getBoardFrame(), this.getI());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				if(i == 300){
+			        this.threadMonster = new Thread_Monster ("2", this);
+				}
+				else if(i == 600){
+					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				this.threadMonster.start();
+			}
+			else if(elementLeftUp == '1' || elementLeftUp == '2' || elementLeftUp == '3' || elementLeftUp == '4' || elementLeftUp == 'H'){
+				this.view.getLorann().setInLife(false);
 			}
 	    	break;
 	    	
 		case KeyEvent.VK_D:
-			if(this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()+1) == '!'){
+			if(elementRightDown == '!'){
 				this.move('d');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()+1) == 'X'){
+			else if(elementRightDown == 'X'){
 				this.move('d');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()+1) == 'C'){
+			else if(elementRightDown == 'C'){
 				this.move('d');
 				this.openDoor();
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()+1, view.getLorann().getY()+1) == 'h'){
+			else if(elementRightDown == 'h'){
 				this.move('d');
 				this.setI(i+=300);
+				if(i >= 1500){
+					this.youWin();
+				}
 				try {
 					this.view.configureBoardFrame(this.view.getBoardFrame(), this.getI());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				if(i == 300){
+			        this.threadMonster = new Thread_Monster ("2", this);
+				}
+				else if(i == 600){
+					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				this.threadMonster.start();
+			}
+			else if(elementRightDown == '1' || elementRightDown == '2' || elementRightDown == '3' || elementRightDown == '4' || elementRightDown == 'H'){
+				this.view.getLorann().setInLife(false);
 			}
 	    	break;
 	    	
 		case KeyEvent.VK_Q:
-			if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()+1) == '!'){
+			if(elementLeftDown == '!'){
 				this.move('Q');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()+1) == 'X'){
+			else if(elementLeftDown == 'X'){
 				this.move('Q');
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()+1) == 'C'){
+			else if(elementLeftDown == 'C'){
 				this.move('Q');
 				this.openDoor();
 			}
-			else if(this.getView().getTabElement(view.getLorann().getX()-1, view.getLorann().getY()+1) == 'h'){
+			else if(elementLeftDown == 'h'){
 				this.move('Q');
 				this.setI(i+=300);
+				if(i >= 1500){
+					this.youWin();
+				}
 				try {
 					this.view.configureBoardFrame(this.view.getBoardFrame(), this.getI());
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				if(i == 300){
+			        this.threadMonster = new Thread_Monster ("2", this);
+				}
+				else if(i == 600){
+					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				this.threadMonster.start();
+			}
+			else if(elementLeftDown == '1' || elementLeftDown == '2' || elementLeftDown == '3' || elementLeftDown == '4' || elementLeftDown == 'H'){
+				this.view.getLorann().setInLife(false);
+			}
+	    	break;
+	    	
+		case KeyEvent.VK_SPACE:
+			if(this.isSpellOnMap() == false){
+				this.threadSpell = new Thread_Spell(this, this.getDirection());
+				
+				int x = this.getView().getLorann().getX();
+				int y = this.getView().getLorann().getY();
+				
+				if(this.getDirection() == 'U' && this.getView().getTabElement(x, y-1) == '!')
+					this.getView().getSpell().setPosition(x, y-1);
+				else if(this.getDirection() == 'D' && this.getView().getTabElement(x, y+1) == '!')
+					this.getView().getSpell().setPosition(x, y+1);
+				else if(this.getDirection() == 'L' && this.getView().getTabElement(x-1, y) == '!')
+					this.getView().getSpell().setPosition(x-1, y);
+				else if(this.getDirection() == 'R' && this.getView().getTabElement(x+1, y) == '!')
+					this.getView().getSpell().setPosition(x+1, y);
+				
+				this.threadSpell.start();
+				
+				this.setSpellOnMap(true);
 			}
 	    	break;
 		}
-		
+	}
+	
+	public void gameOver(){
+    	if(this.view.getLorann().getInLife() == false){
+    		this.view.setTabElement('!', this.view.getLorann().getX(), this.view.getLorann().getY());
+    		this.view.refreshFrame('!', this.view.getLorann().getX(), this.view.getLorann().getY());
+    		this.view.getBoardFrame().dispose();
+    		this.view.displayMessage("Game Over");
+    		System.exit(0);
+    	}
+	}
+	
+	public void youWin(){
+		this.view.setTabElement('!', this.view.getLorann().getX(), this.view.getLorann().getY());
+		this.view.refreshFrame('!', this.view.getLorann().getX(), this.view.getLorann().getY());
+		this.view.getBoardFrame().dispose();
+		this.view.displayMessage("You win !");
+		System.exit(0);
 	}
 
 	@Override
@@ -338,5 +502,13 @@ public class ControllerFacade implements IController, KeyListener {
 
 	public void setI(int i) {
 		this.i = i;
+	}
+	
+	public boolean isSpellOnMap() {
+		return spellOnMap;
+	}
+
+	public void setSpellOnMap(boolean spellOnMap) {
+		this.spellOnMap = spellOnMap;
 	}
 }

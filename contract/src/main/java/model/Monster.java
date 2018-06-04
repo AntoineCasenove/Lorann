@@ -1,9 +1,5 @@
 package model;
 
-/**
-* @authors Antoine CASENOVE antoine.casenove@viacesi.fr, Antonin PRETET antoine.pretet@viacesi.fr
-*/
-
 import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
@@ -11,48 +7,33 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import showboard.IPawn;
+/**
+* @author Antoine CASENOVE antoine.casenove@viacesi.fr
+*/
 
-public class Lorann extends Mobile{
+public class Monster extends Mobile {
 	
-	private int numberImage = 0;
+    /** The image. */
+    public Image  image;
+
+    /** The image name. */
+    public String imageName;
+    
 	private Point Position;
-	private Image imageLorann[];
-	private boolean inLife = true;
 	
-	public boolean getInLife() {
-		return inLife;
+	private boolean isInLife = true;
+	
+	public boolean isInLife() {
+		return isInLife;
 	}
 
-	public void setInLife(boolean inLife) {
-		this.inLife = inLife;
+	public void setInLife(boolean isInLife) {
+		this.isInLife = isInLife;
 	}
 
-	public Lorann(final String nameFile) throws IOException {
-		super(nameFile);
-		
-		this.imageLorann = new Image[8];
-		int y = 0;
-		for (int i = 1; i <= 8;i++)
-		{
-			this.imageLorann[y] = ImageIO.read(new File("sprites/lorann_" + i + ".png"));
-			y++;
-		}
+	public Monster(String imageName) throws IOException {
+		super(imageName);
 	}
-
-	//*******AFK ANIMATION*****//
-	
-	public void afk(){
-		
-		if (numberImage == 8)
-		{
-			numberImage = 0;
-		}
-		this.setImage(imageLorann[numberImage]);
-		numberImage++;	
-	}
-	
-	//*******GETTERS AND SETTERS*****//
 	
 	@Override
 	public int getX() 

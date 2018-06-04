@@ -8,6 +8,10 @@ import javax.imageio.ImageIO;
 
 import showboard.IPawn;
 
+/**
+* @author Antoine CASENOVE antoine.casenove@viacesi.fr
+*/
+
 public abstract class Mobile implements IPawn{
 	
     /** The image. */

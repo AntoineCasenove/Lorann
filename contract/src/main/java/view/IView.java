@@ -1,11 +1,7 @@
 package view;
 
-import java.io.IOException;
 import java.sql.SQLException;
-
-import model.IModel;
-import model.Lorann;
-import model.Obstacle;
+import model.*;
 import showboard.BoardFrame;
 
 /**
@@ -31,4 +27,9 @@ public interface IView {
     public void refreshFrame(char entry, int x, int y);
     public Lorann getLorann();
     public BoardFrame getBoardFrame();
+    public Monster getMonster1();
+    public Monster getMonster2();
+    public Monster getMonster3();
+    public Monster getMonster4();
+    public Spell getSpell();
 }

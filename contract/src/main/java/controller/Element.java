@@ -6,7 +6,7 @@ import model.Obstacle;
 import showboard.IPawn;
 
 //The Class Example
-public class Element extends Obstacle implements IPawn{
+public class Element{
 
     //The id
     private final int id;
@@ -16,7 +16,7 @@ public class Element extends Obstacle implements IPawn{
 
     //Instantiates a new example.
     public Element(final int id, final String name) {
-        super(name);
+        super();
         this.id = id;
         this.name = name;
     }
@@ -44,22 +44,4 @@ public class Element extends Obstacle implements IPawn{
     public String toString() {
         return this.getId() + " : " + this.getName();
     }
-
-	@Override
-	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Point getPosition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -10,14 +10,12 @@ import controller.Element;
 import showboard.BoardFrame;
 import java.util.List;
 import java.util.Observable;
-import model.IModel;
-import model.Lorann;
-import model.Obstacle;
+import model.*;
 
 /**
  * <h1>The Class ViewFacade provides a facade of the View component.</h1>
  *
- * @author Jean-Aymeric DIET jadiet@cesi.fr
+ * @author Antoine CASENOVE antoine.casenove@viacesi.fr
  * @version 1.0
  */
 
@@ -25,12 +23,15 @@ public class ViewFacade extends Observable implements IView, Runnable {
 
 	private IModel model;
 	private Lorann lorann = new Lorann("lorann_1.png");
+	private Monster monster1 = new Monster("monster_1.png");
+	private Monster monster2 = new Monster("monster_2.png");
+	private Monster monster3 = new Monster("monster_3.png");
+	private Monster monster4 = new Monster("monster_4.png");
 	private final int frameWidth = 1056;
 	private final int frameHeight = 922;
 	private final int width = 20;
 	private final int height = 15;
 	public Rectangle view = new Rectangle(0,0,width,height+1);
-	//private Element element = new Element(1,"/bone.png");
 	private final Obstacle verticalBone = new Obstacle("vertical_bone.png");
 	private final Obstacle horizontalBone = new Obstacle("horizontal_bone.png");
 	private final Obstacle bone = new Obstacle("bone.png");
@@ -40,8 +41,9 @@ public class ViewFacade extends Observable implements IView, Runnable {
 	private final Obstacle crystalBall = new Obstacle("crystal_ball.png");
 	private final Obstacle empty = new Obstacle("empty.png");
 	private char[][] tabElement = new char[width][height];
+    Spell fireball = new Spell("fireball_1.png");
 	private BoardFrame frame;
-
+	
 	/**
      * Instantiates a new view facade.
      * @throws IOException 
@@ -60,6 +62,11 @@ public class ViewFacade extends Observable implements IView, Runnable {
         this.purse.loadImage();
         this.empty.loadImage();
         this.getLorann().loadImage();
+        this.monster1.loadImage();
+        this.monster2.loadImage();
+        this.monster3.loadImage();
+        this.monster4.loadImage();
+        this.fireball.loadImage();
     }
     
     @Override
@@ -74,18 +81,18 @@ public class ViewFacade extends Observable implements IView, Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		frame.setSize(frameWidth,frameHeight);
 		frame.setLocationRelativeTo(null);
     }
-    
-    @Override
+
+	@Override
     public void configureBoardFrame(BoardFrame frame, int i) throws SQLException{
 
     	final List<Element> entity = this.getModel().getAllExamples();
 
     	char tmp;
-    	//System.out.println(entity.get(0).getName());
+
 	    for (int y = 0; y < height; y++) {
 	        for (int x = 0; x < width; x++) {
 	        	tmp = entity.get(i).getName().charAt(0);
@@ -98,6 +105,7 @@ public class ViewFacade extends Observable implements IView, Runnable {
 	}
 
     public void refreshFrame(char entry,int x, int y){
+    	
     	switch(entry){
     	case 'O' :
         	setTabElement('O',x,y);
@@ -130,8 +138,31 @@ public class ViewFacade extends Observable implements IView, Runnable {
 		case 'L' :
 			setTabElement('L',x,y);
 			frame.addSquare(lorann,x,y);
-			frame.addPawn(lorann);
 			lorann.setPosition(x, y);
+		break;
+		case '1' :
+			setTabElement('1',x,y);
+			frame.addSquare(monster1, x, y);
+			monster1.setPosition(x,y);
+		break;
+		case '2' :
+			setTabElement('2',x,y);
+			frame.addSquare(monster2, x, y);
+			monster2.setPosition(x,y);
+		break;
+		case '3' :
+			setTabElement('3',x,y);
+			frame.addSquare(monster3, x, y);
+			monster3.setPosition(x,y);
+		break;
+		case '4' :
+			setTabElement('4',x,y);
+			frame.addSquare(monster4, x, y);
+			monster4.setPosition(x,y);
+		break;
+		case 'S' :
+			setTabElement('L',x,y);
+			frame.addSquare(fireball, x, y);
 		break;
 		default :
 			setTabElement('!', x,y);
@@ -185,5 +216,25 @@ public class ViewFacade extends Observable implements IView, Runnable {
 	public void setTabElement(final char tabElement,final int x,final int y){
 		this.tabElement[x][y] = tabElement;
 	}
+	
+    public Monster getMonster1() {
+		return monster1;
+	}
 
+	public Monster getMonster2() {
+		return monster2;
+	}
+
+	public Monster getMonster3() {
+		return monster3;
+	}
+
+	public Monster getMonster4() {
+		return monster4;
+	}
+
+	@Override
+	public Spell getSpell() {
+		return fireball;
+	}
 }

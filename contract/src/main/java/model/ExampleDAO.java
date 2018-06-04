@@ -82,6 +82,7 @@ public abstract class ExampleDAO extends AbstractDAO {
      *             the SQL exception
      */
     public static List<Element> getAllExamples() throws SQLException {
+    	
         final ArrayList<Element> examples = new ArrayList<Element>();
         final CallableStatement callStatement = prepareCall(sqlAllExamples);
         if (callStatement.execute()) {

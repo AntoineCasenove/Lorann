@@ -42,7 +42,7 @@ import javax.swing.JPanel;
  * panel. If this Rectangle is higher than the board dimension, the noImage is also used.
  * </p>
  *
- * @author Sulyven, Enzo, Abdel, Arthur and Ugo group
+ * @author Robin, Yacine, Antonin, Antoine.
  * @version 3.0
  * @see JPanel
  * @see Dimension
