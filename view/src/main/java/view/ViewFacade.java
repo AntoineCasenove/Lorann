@@ -76,7 +76,7 @@ public class ViewFacade extends Observable implements IView, Runnable {
 		frame.setDisplayFrame(view);
 		
 		try {
-			this.configureBoardFrame(frame, 0);
+			this.configureBoardFrame(frame, 900);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
