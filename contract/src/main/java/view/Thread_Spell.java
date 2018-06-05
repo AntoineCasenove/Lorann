@@ -179,8 +179,9 @@ public class Thread_Spell extends Thread {
 		}
 		
 		//System.out.println(this.controller.getView().getSpell().getPosition().x + " " + this.controller.getView().getSpell().getPosition().y);
-
-		controller.getView().updateF();
+		
+		this.controller.getView().getSpell().changeColor();
+		this.controller.getView().updateF();
 
 		try {
 			Thread.sleep(loop);

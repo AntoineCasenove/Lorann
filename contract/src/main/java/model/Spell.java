@@ -1,19 +1,44 @@
 package model;
 
+import java.awt.Image;
 import java.awt.Point;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Spell extends Mobile{
 
-	Point position;
+	private Image imageSpell[];
 	
-	char direction;
+	private int numberImage = 0;
 	
-	boolean canSpell = true;
-
-	private boolean back;
+	private Point position;
 	
-	public Spell(String imageName) {
+	private char direction;
+	
+	private boolean canSpell = true;
+	
+	public Spell(String imageName) throws IOException {
 		super(imageName);
+		
+		this.imageSpell = new Image[8];
+		int y = 0;
+		for (int i = 1; i <= 5;i++)
+		{
+			this.imageSpell[y] = ImageIO.read(new File("sprites/fireball_" + i + ".png"));
+			y++;
+		}
+	}
+	
+	public void changeColor(){
+		
+		if (numberImage == 5)
+		{
+			numberImage = 0;
+		}
+		this.setImage(imageSpell[numberImage]);
+		numberImage++;	
 	}
 	
 	@Override
@@ -84,14 +109,6 @@ public class Spell extends Mobile{
 	}
 	public void changeDirection(){
 	 
-	}
-	
-	public boolean isBack() {
-	return back;
-	}
-	
-	public void setBack(boolean back) {
-	this.back = back;
 	}
 	
 	public char getDirection() {

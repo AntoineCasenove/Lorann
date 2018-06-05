@@ -27,9 +27,11 @@ public class ControllerFacade implements IController, KeyListener {
     
     Thread_Spell threadSpell;
     
-    char direction;
+    private char direction;
 
-    boolean spellOnMap = false;
+    private boolean spellOnMap = false;
+    
+    private int score = 0;
 
 	private int i = 0;
    
@@ -159,8 +161,12 @@ public class ControllerFacade implements IController, KeyListener {
 		switch(keyCode){
 
 		case KeyEvent.VK_UP:
-			if(elementUp == '!' || elementUp == 'X'){
+			if(elementUp == '!'){
 				this.move('U');
+			}
+			else if(elementUp == 'X'){
+				this.move('U');
+				score+=100;
 			}
 			else if(elementUp == 'C'){
 				this.move('U');
@@ -204,6 +210,7 @@ public class ControllerFacade implements IController, KeyListener {
 			}
 			else if(elementDown == 'X'){
 				this.move('D');
+				score+=100;
 			}
 			else if(elementDown == 'C'){
 				this.move('D');
@@ -247,6 +254,7 @@ public class ControllerFacade implements IController, KeyListener {
 			}
 			else if(elementLeft == 'X'){
 				this.move('L');
+				score+=100;
 			}
 			else if(elementLeft == 'C'){
 				this.move('L');
@@ -288,8 +296,9 @@ public class ControllerFacade implements IController, KeyListener {
 			if(elementRight == '!'){
 				this.move('R');
 			}
-			else if (elementRight == 'X'){
+			else if(elementRight == 'X'){
 				this.move('R');
+				score+=100;
 			}
 			else if (elementRight == 'C'){
 				this.move('R');
@@ -333,6 +342,7 @@ public class ControllerFacade implements IController, KeyListener {
 			}
 			else if(elementRightUp == 'X'){
 				this.move('E');
+				score+=100;
 			}
 			else if(elementRightUp == 'C'){
 				this.move('E');
@@ -376,6 +386,7 @@ public class ControllerFacade implements IController, KeyListener {
 			}
 			else if(elementLeftUp == 'X'){
 				this.move('A');
+				score+=100;
 			}
 			else if(elementLeftUp == 'C'){
 				this.move('A');
@@ -419,6 +430,7 @@ public class ControllerFacade implements IController, KeyListener {
 			}
 			else if(elementRightDown == 'X'){
 				this.move('d');
+				score+=100;
 			}
 			else if(elementRightDown == 'C'){
 				this.move('d');
@@ -462,6 +474,7 @@ public class ControllerFacade implements IController, KeyListener {
 			}
 			else if(elementLeftDown == 'X'){
 				this.move('Q');
+				score+=100;
 			}
 			else if(elementLeftDown == 'C'){
 				this.move('Q');
@@ -522,12 +535,16 @@ public class ControllerFacade implements IController, KeyListener {
 		}
 	}
 	
+	public int getScore() {
+		return score;
+	}
+
 	public void gameOver(){
     	if(this.view.getLorann().getInLife() == false){
     		this.view.setTabElement('!', this.view.getLorann().getX(), this.view.getLorann().getY());
     		this.view.refreshFrame('!', this.view.getLorann().getX(), this.view.getLorann().getY());
     		this.view.getBoardFrame().dispose();
-    		this.view.displayMessage("Game Over");
+    		this.view.displayMessage("Game Over" + "Score : " + this.getScore());
     		System.exit(0);
     	}
 	}
@@ -536,7 +553,7 @@ public class ControllerFacade implements IController, KeyListener {
 		this.view.setTabElement('!', this.view.getLorann().getX(), this.view.getLorann().getY());
 		this.view.refreshFrame('!', this.view.getLorann().getX(), this.view.getLorann().getY());
 		this.view.getBoardFrame().dispose();
-		this.view.displayMessage("You win !");
+		this.view.displayMessage("You win !\n" + "Score : " + this.getScore());
 		System.exit(0);
 	}
 

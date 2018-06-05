@@ -22,14 +22,6 @@ public class Monster extends Mobile {
 	private Point Position;
 	
 	private boolean isInLife = true;
-	
-	public boolean isInLife() {
-		return isInLife;
-	}
-
-	public void setInLife(boolean isInLife) {
-		this.isInLife = isInLife;
-	}
 
 	public Monster(String imageName) throws IOException {
 		super(imageName);
@@ -101,5 +93,13 @@ public class Monster extends Mobile {
 	@Override
 	public void moveLeftDown() {
 		this.setPosition(getPosition().x-1, getPosition().y+1);
+	}
+	
+	public boolean isInLife() {
+		return isInLife;
+	}
+
+	public void setInLife(boolean isInLife) {
+		this.isInLife = isInLife;
 	}
 }
