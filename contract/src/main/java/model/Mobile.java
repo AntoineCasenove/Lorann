@@ -20,16 +20,6 @@ public abstract class Mobile implements IPawn{
     /** The image name. */
     public String imageName;
 	
-    /**
-     * Gets the image.
-     *
-     * @return the image
-     */
-    /*
-     * (non-Javadoc)
-     * @see fr.exia.showboard.ISquare#getImage()
-     */
-	
 	protected abstract void moveUp();
 	protected abstract void moveDown();
 	protected abstract void moveRight();
@@ -43,6 +33,16 @@ public abstract class Mobile implements IPawn{
     public Mobile(final String imageName) {
         this.setImageName(imageName);
     }
+    
+    /**
+     * Gets the image.
+     *
+     * @return the image
+     */
+    /*
+     * (non-Javadoc)
+     * @see fr.exia.showboard.ISquare#getImage()
+     */
     
     @Override
     public Image getImage() {

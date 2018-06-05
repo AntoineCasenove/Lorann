@@ -7,7 +7,7 @@ import view.*;
 import model.*;
 
 /** The Main class
-	@authors Robin, Yacine, Antonin and Antoine
+/*	@authors Antoine CASENOVE antoine.casenove@viacesi.fr
 */
 public abstract class Main {
 	
