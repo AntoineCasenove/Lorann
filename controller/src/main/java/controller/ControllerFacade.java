@@ -184,6 +184,13 @@ public class ControllerFacade implements IController, KeyListener {
 				else if(i == 600){
 					this.threadMonster = new Thread_Monster ("3", this);
 				}
+				else if(i == 900){
+					this.threadMonster = new Thread_Monster ("4", this);
+				}
+				if(i == 1200){
+			        this.threadMonster = new Thread_Monster ("5", this);
+			        this.view.getMonster2().setInLife(true);
+				}
 				this.threadMonster.start();
 			}
 			else if(elementUp == '1' || elementUp == '2' || elementUp == '3' || elementUp == '4' || elementUp == 'H'){
@@ -219,6 +226,13 @@ public class ControllerFacade implements IController, KeyListener {
 				}
 				else if(i == 600){
 					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				else if(i == 900){
+					this.threadMonster = new Thread_Monster ("4", this);
+				}
+				if(i == 1200){
+			        this.threadMonster = new Thread_Monster ("5", this);
+			        this.view.getMonster2().setInLife(true);
 				}
 				this.threadMonster.start();
 			}
@@ -256,6 +270,13 @@ public class ControllerFacade implements IController, KeyListener {
 				else if(i == 600){
 					this.threadMonster = new Thread_Monster ("3", this);
 				}
+				else if(i == 900){
+					this.threadMonster = new Thread_Monster ("4", this);
+				}
+				if(i == 1200){
+			        this.threadMonster = new Thread_Monster ("5", this);
+			        this.view.getMonster2().setInLife(true);
+				}
 				this.threadMonster.start();
 			}
 			else if(elementLeft == '1' || elementLeft == '2' || elementLeft == '3' || elementLeft == '4' || elementLeft == 'H'){
@@ -291,6 +312,13 @@ public class ControllerFacade implements IController, KeyListener {
 				}
 				else if(i == 600){
 					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				else if(i == 900){
+					this.threadMonster = new Thread_Monster ("4", this);
+				}
+				if(i == 1200){
+			        this.threadMonster = new Thread_Monster ("5", this);
+			        this.view.getMonster2().setInLife(true);
 				}
 				this.threadMonster.start();
 			}
@@ -328,6 +356,13 @@ public class ControllerFacade implements IController, KeyListener {
 				else if(i == 600){
 					this.threadMonster = new Thread_Monster ("3", this);
 				}
+				else if(i == 900){
+					this.threadMonster = new Thread_Monster ("4", this);
+				}
+				if(i == 1200){
+			        this.threadMonster = new Thread_Monster ("5", this);
+			        this.view.getMonster2().setInLife(true);
+				}
 				this.threadMonster.start();
 			}
 			else if(elementRightUp == '1' || elementRightUp == '2' || elementRightUp == '3' || elementRightUp == '4' || elementRightUp == 'H'){
@@ -363,6 +398,13 @@ public class ControllerFacade implements IController, KeyListener {
 				}
 				else if(i == 600){
 					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				else if(i == 900){
+					this.threadMonster = new Thread_Monster ("4", this);
+				}
+				if(i == 1200){
+			        this.threadMonster = new Thread_Monster ("5", this);
+			        this.view.getMonster2().setInLife(true);
 				}
 				this.threadMonster.start();
 			}
@@ -400,6 +442,13 @@ public class ControllerFacade implements IController, KeyListener {
 				else if(i == 600){
 					this.threadMonster = new Thread_Monster ("3", this);
 				}
+				else if(i == 900){
+					this.threadMonster = new Thread_Monster ("4", this);
+				}
+				if(i == 1200){
+			        this.threadMonster = new Thread_Monster ("5", this);
+			        this.view.getMonster2().setInLife(true);
+				}
 				this.threadMonster.start();
 			}
 			else if(elementRightDown == '1' || elementRightDown == '2' || elementRightDown == '3' || elementRightDown == '4' || elementRightDown == 'H'){
@@ -434,6 +483,13 @@ public class ControllerFacade implements IController, KeyListener {
 				}
 				else if(i == 600){
 					this.threadMonster = new Thread_Monster ("3", this);
+				}
+				else if(i == 900){
+					this.threadMonster = new Thread_Monster ("4", this);
+				}
+				if(i == 1200){
+			        this.threadMonster = new Thread_Monster ("5", this);
+			        this.view.getMonster2().setInLife(true);
 				}
 				this.threadMonster.start();
 			}

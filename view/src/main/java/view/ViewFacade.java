@@ -76,7 +76,7 @@ public class ViewFacade extends Observable implements IView, Runnable {
 		frame.setDisplayFrame(view);
 		
 		try {
-			this.configureBoardFrame(frame, 900);
+			this.configureBoardFrame(frame, 0);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -159,6 +159,7 @@ public class ViewFacade extends Observable implements IView, Runnable {
 			setTabElement('4',x,y);
 			frame.addSquare(monster4, x, y);
 			monster4.setPosition(x,y);
+			//System.out.println(monster4.getX() + " " + monster4.getY());
 		break;
 		case 'S' :
 			setTabElement('L',x,y);
