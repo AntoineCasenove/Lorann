@@ -26,6 +26,7 @@ public class Thread_Spell extends Thread {
 		while (this.controller.isSpellOnMap() == true) {
 		
 		this.controller.getView().setTabElement('!', this.controller.getView().getSpell().getPosition().x, this.controller.getView().getSpell().getPosition().y);
+		System.out.println(this.controller.getView().getSpell().getPosition().x + " " + this.controller.getView().getSpell().getPosition().y);
 		this.controller.getView().refreshFrame('!', this.controller.getView().getSpell().getPosition().x, this.controller.getView().getSpell().getPosition().y);
 		
 		int x = this.controller.getView().getSpell().getPosition().x;
