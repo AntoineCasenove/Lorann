@@ -7,9 +7,11 @@ import showboard.BoardFrame;
 /**
  * <h1>The Interface IView.</h1>
  *
- * @author Jean-Aymeric DIET jadiet@cesi.fr
+ * @authors Antoine CASENOVE antoine.casenove@viacesi.fr, Antonin PRETET antoine.pretet@viacesi.fr
+ *
  * @version 1.0
  */
+
 public interface IView {
 
     /**
@@ -18,7 +20,14 @@ public interface IView {
      * @param message
      *            the message
      */
+	
     void displayMessage(String message);
+    
+    /**
+     * Run the view 
+     *
+     */
+    
     public void run();
     public void updateF();
     public void configureBoardFrame(BoardFrame frame, int i) throws SQLException;

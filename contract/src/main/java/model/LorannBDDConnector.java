@@ -9,7 +9,9 @@ import java.sql.Statement;
 /**
  * <h1>The Class BoulderDashBDDConnector.</h1>
  *
- * @author Jean-Aymeric DIET jadiet@cesi.fr
+ *
+ * @author Antoine CASENOVE antoine.casenove@viacesi.fr
+ *
  * @version 1.0
  */
 final class LorannBDDConnector {

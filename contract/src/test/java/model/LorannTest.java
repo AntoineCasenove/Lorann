@@ -1,5 +1,9 @@
 package model;
 
+/**
+* @author Antoine CASENOVE antoine.casenove@viacesi.fr
+*/
+
 import static org.junit.Assert.*;
 
 import java.io.IOException;

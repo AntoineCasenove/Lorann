@@ -21,11 +21,11 @@ public class ControllerFacade implements IController, KeyListener {
     //The model
     private final IModel model;
 
-    Thread_Lorann threadLorann;
+    private Thread_Lorann threadLorann;
     
-    Thread_Monster threadMonster;
+    private Thread_Monster threadMonster;
     
-    Thread_Spell threadSpell;
+    private Thread_Spell threadSpell;
     
     private char direction;
 
